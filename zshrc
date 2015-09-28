@@ -58,3 +58,10 @@ PR_RESET_COLOR="%{$reset_color%}"
 
 export PROMPT='${PR_LIGHT_BLACK}[${PR_LIGHT_BLUE}%n${PR_LIGHT_BLACK}@${PR_RESET_COLOR}${PR_GREEN}%m${PR_LIGHT_BLACK}:${PR_LIGHT_GREEN}%2c${PR_LIGHT_BLACK}]${PR_RESET_COLOR}${PR_RED} %(!.#.$)${PR_RESET_COLOR} '
 export RPROMPT='${PR_LIGHT_BLACK}(%D{%m-%d %H:%M}) [%?] ${vcs_info_msg_0_}${PR_RESET_COLOR}' # shows exit status of previous command
+
+
+#~~~~~~~~~~~~~~~~~#
+#  Miscellaneous  #
+#~~~~~~~~~~~~~~~~~#
+# emacs keybindings in command line
+set -o emacs
