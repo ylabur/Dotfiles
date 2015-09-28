@@ -4,35 +4,35 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~#
 #  Environment variables  #
 #~~~~~~~~~~~~~~~~~~~~~~~~~#
-setopt ALL_EXPORT                                                                # export all of these settings
+setopt ALL_EXPORT                                                               # export all of these settings
 
 ##==-- standard stuff --==##
-VISUAL=vim                                                                       # VISUAL is the right one to set for setting the editor
-EDITOR="$VISUAL"                                                                 # but EDITOR is often used by mistake
+VISUAL=vim                                                                      # VISUAL is the right one to set for setting the editor
+EDITOR="$VISUAL"                                                                # but EDITOR is often used by mistake
 
 ##==-- zsh --==##
 HISTFILE="$HOME/.zsh/cache/`hostname`.zhistory"
 HISTSIZE=130000
 SAVEHIST=100000
 
-setopt NO_ALL_EXPORT                                                             # end export all
+setopt NO_ALL_EXPORT                                                            # end export all
 
 
 #~~~~~~~~~~~~~~~#
 #  Zsh options  #
 #~~~~~~~~~~~~~~~#
 ##==-- history settings --==##
-setopt HIST_IGNORE_DUPS                                                          # ignore adjacent duplicate command lines in scrollback
-setopt NO_HIST_VERIFY                                                            # do not review `sudo !!` before executing
-setopt INC_APPEND_HISTORY                                                        # append, not replace, to the history file
-setopt EXTENDED_HISTORY                                                          # provide timestamps in history
-setopt HIST_EXPIRE_DUPS_FIRST                                                    # remove duplicates first before saving history
-setopt HIST_IGNORE_SPACE                                                         # do not save command line if it has a leading space
-setopt NO_SHARE_HISTORY                                                          # annoying when different terminals do different tasks
+setopt HIST_IGNORE_DUPS                                                         # ignore adjacent duplicate command lines in scrollback
+setopt NO_HIST_VERIFY                                                           # do not review `sudo !!` before executing
+setopt INC_APPEND_HISTORY                                                       # append, not replace, to the history file
+setopt EXTENDED_HISTORY                                                         # provide timestamps in history
+setopt HIST_EXPIRE_DUPS_FIRST                                                   # remove duplicates first before saving history
+setopt HIST_IGNORE_SPACE                                                        # do not save command line if it has a leading space
+setopt NO_SHARE_HISTORY                                                         # annoying when different terminals do different tasks
 
 ##==-- globbing --==#
-setopt EXTENDED_GLOB                                                             # use cool zsh glob features (`ls **/filename`, etc)
-setopt LONG_LIST_JOBS                                                            # list jobs in long format
+setopt EXTENDED_GLOB                                                            # use cool zsh glob features (`ls **/filename`, etc)
+setopt LONG_LIST_JOBS                                                           # list jobs in long format
 
 ### VCS module required
 autoload -Uz vcs_info
