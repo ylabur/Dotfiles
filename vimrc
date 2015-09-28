@@ -16,8 +16,8 @@ set wrap                " Wraps long lines
 set scrolloff=5         " Always shows five lines of vertical context around the cursor
 
 set viminfo='20,\"500
-set backupdir=$HOME/.vim/_backup             " store backup files here
-set directory=$HOME/.vim/_temp,/var/tmp,/tmp " store swap files here
+set backupdir=$VIMBACKUPDIR             " store backup files here
+set directory=$VIMDIRECTORY,/var/tmp,/tmp " store swap files here
 
 " Low priority for these files in tab-completion.
 set suffixes+=.aux,.bbl,.blg,.dvi,.log,.pdf,.fdb_latexmk

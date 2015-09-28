@@ -15,6 +15,10 @@ HISTFILE="$HOME/.zsh/cache/`hostname`.zhistory"
 HISTSIZE=130000
 SAVEHIST=100000
 
+##==-- vim --==##
+VIMBACKUPDIR="$HOME/.vim/_backup"
+VIMDIRECTORY="$HOME/.vim/_temp"
+
 setopt NO_ALL_EXPORT                                                            # end export all
 
 
