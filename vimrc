@@ -4,6 +4,9 @@
 call plug#begin('$HOME/.vim/plugged')
 " Add plugins to &runtimepath
 Plug 'jnurmine/Zenburn'
+Plug 'edkolev/tmuxline.vim'
+Plug 'bling/vim-airline'
+" Plug 'powerline/powerline'
 call plug#end()
 
 
@@ -81,6 +84,7 @@ set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\  " representing t
 "                                   Syntax
 " =============================================================================
 syntax on
+au BufRead,BufNewFile *.json set filetype=javascript
 
 
 " =============================================================================
