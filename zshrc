@@ -23,6 +23,12 @@ LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 VIMBACKUPDIR="$HOME/.vim/_backup"
 VIMDIRECTORY="$HOME/.vim/_temp"
 
+##==-- vcs_info --==##
+# PROMPT='${vcs_info_msg_0_}%# '
+export PROMPT='${PR_LIGHT_BLUE}%n@%m${PR_GREEN}:%2c${PR_YELLOW}|${PR_RED}%(?..[%?])${PR_YELLOW}%(!.#.$)${PR_RESET_COLOR} '
+# export RPROMPT='${PR_LIGHT_BLACK}(%D{%m-%d %H:%M}) [%?] ${vcs_info_msg_0_}${PR_RESET_COLOR}' # shows exit status of previous command
+RPROMPT='${vcs_info_msg_0_}'
+
 setopt NO_ALL_EXPORT                                                            # end export all
 
 
@@ -42,17 +48,19 @@ setopt NO_SHARE_HISTORY                                                         
 setopt EXTENDED_GLOB                                                            # use cool zsh glob features (`ls **/filename`, etc)
 setopt LONG_LIST_JOBS                                                           # list jobs in long format
 
-### VCS module required
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git hg
-zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats       '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
-zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+##==-- vcs module --==##
+autoload -Uz vcs_info                                                           # enable vcs module
+setopt prompt_subst                                                             # set prompt substitution
+zstyle ':vcs_info:*' enable git svn                                             # look for git and svn repos
+zstyle ':vcs_info:git*' formats "%s  %r/%S %b (%a) %m%u%c "                     # information in the git prompt
+# zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+# zstyle ':vcs_info:*' formats       '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
+# zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
 
 ### Colors and Prompt
-prompt_opts=(cr percent subst)
-setopt prompt_subst
-autoload colors zsh/terminfo && colors
+# prompt_opts=(cr percent subst)
+# setopt prompt_subst
+autoload -U colors terminfo && colors
 for color in BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
 	eval export PR_LIGHT_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
 	eval export PR_$color='%{$fg[${(L)color}]%}'
@@ -60,8 +68,15 @@ for color in BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
 done
 PR_RESET_COLOR="%{$reset_color%}"
 
-export PROMPT='${PR_LIGHT_BLACK}[${PR_LIGHT_BLUE}%n${PR_LIGHT_BLACK}@${PR_RESET_COLOR}${PR_GREEN}%m${PR_LIGHT_BLACK}:${PR_LIGHT_GREEN}%2c${PR_LIGHT_BLACK}]${PR_RESET_COLOR}${PR_RED} %(!.#.$)${PR_RESET_COLOR} '
-export RPROMPT='${PR_LIGHT_BLACK}(%D{%m-%d %H:%M}) [%?] ${vcs_info_msg_0_}${PR_RESET_COLOR}' # shows exit status of previous command
+
+
+#~~~~~~~~~~~~~~~#
+#  Zsh options  #
+#~~~~~~~~~~~~~~~#
+##==-- pre-command --==##
+precmd() {
+  vcs_info
+}
 
 
 #~~~~~~~~~~~~~~~~~#
