@@ -26,6 +26,7 @@ set magic               " Improves default search
 set autoread            " Prompt to reread a file if it changes
 set wrap                " Wraps long lines
 set scrolloff=5         " Always shows five lines of vertical context around the cursor
+set autochdir           " set cwd to that of the currently displayed file
 
 set viminfo='20,\"500
 set backupdir=$VIMBACKUPDIR             " store backup files here

@@ -15,7 +15,7 @@ set -e
 DOTFILES_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # list of files to link into homedir
 DOTFILES=(gitconfig gitignore_global tmux.conf vimrc zshrc)
-VIMDIRS=($VIMBACKUPDIR $VIMDIRECTORY)
+TOUCH_DIRS=($VIMBACKUPDIR $VIMDIRECTORY)
 
 # hide command output
 alias -g no-output=">/dev/null 2>&1"
@@ -36,14 +36,15 @@ function dotfiles () {
   done
 }
 
-function vimdirs() {
+# function to create some files and directories that should be present
+function touch_files_and_dirs() {
   pushd "$HOME" no-output
-  for vimdir in "${VIMDIRS[@]}"; do
-  if [ ! -d "${vimdir}" ]; then
-      echo "creating ${vimdir}"
-      mkdir -p ${vimdir}
+  for touch_dir in "${TOUCH_DIRS[@]}"; do
+  if [ ! -d "${touch_dir}" ]; then
+      echo "creating ${touch_dir}"
+      mkdir -p ${touch_dir}
   else
-      echo "${vimdir} already exists"
+      echo "${touch_dir} already exists"
   fi
   done
 }
@@ -55,5 +56,5 @@ function vimplug() {
 }
 
 dotfiles
-vimdirs
+touch_files_and_dirs
 vimplug
