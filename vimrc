@@ -3,10 +3,14 @@
 " =============================================================================
 call plug#begin('$HOME/.vim/plugged')
 " Add plugins to &runtimepath
-Plug 'jnurmine/Zenburn'
-Plug 'edkolev/tmuxline.vim'
 Plug 'bling/vim-airline'
-" Plug 'powerline/powerline'
+Plug 'davidhalter/jedi-vim'
+Plug 'edkolev/tmuxline.vim'
+" Plug 'ervandew/supertab'
+Plug 'flazz/vim-colorschemes'
+Plug 'klen/python-mode'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 
@@ -36,6 +40,16 @@ set directory=$VIMDIRECTORY,/var/tmp,/tmp " store swap files here
 set suffixes+=.aux,.bbl,.blg,.dvi,.log,.pdf,.fdb_latexmk
 set suffixes+=.info,.out,.o,.lo,.bak,~,.swp,.o,.info,.log
 
+"##############################################################################                                                                         
+"" a wise man once told me... (Stack Overflow 6053301)
+"" Easier split navigation                                                                                                                               
+"##############################################################################                                                                         
+"" Use ctrl-[hjkl] to select the active split!
+nnoremap <silent> <c-k> <c-w>k
+nnoremap <silent> <c-j> <c-w>j
+nnoremap <silent> <c-h> <c-w>h
+nnoremap <silent> <c-l> <c-w>l
+
 
 " =============================================================================
 "                                  Formatting
@@ -43,9 +57,9 @@ set suffixes+=.info,.out,.o,.lo,.bak,~,.swp,.o,.info,.log
 set autoindent          " Copy indent from current line on starting a new line.
 set smartindent         " Indent in an extra level in some cases
 set copyindent          " Copy the structure of existing indentation
-set expandtab           " Expand tabs to spaces.
 set tabstop=2           " number of spaces for a <Tab>.
 set shiftwidth=2        " Tab indention
+set expandtab           " Expand tabs to spaces.
 
 " Indentation Tweaks.
 " e-s = do not indent if opening bracket is not first character in a line.
@@ -91,4 +105,58 @@ au BufRead,BufNewFile *.json set filetype=javascript
 " =============================================================================
 "                                   Plugins
 " =============================================================================
+" zenburn
 colors zenburn
+
+" NERDTree
+map <F2> :NERDTreeToggle<CR>
+
+" vim-airline
+set laststatus=2       " enable staus line
+set ttimeoutlen=50     " not sure what this is
+let g:airline_theme = 'powerlineish'      " pretty status
+let g:airline#extensions#hunks#enabled=0  " enable scm stuff
+let g:airline#extensions#branch#enabled=1 " enable scm stuff
+let g:airline#extensions#tabline#enabled=1 " add buffer status line
+let g:airline#extensions#tabline#fnamemod=':t' " only the filename
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+" Python-mode, stolen from http://unlogic.co.uk/2013/02/08/vim-as-a-python-ide/
+" Activate rope
+" Keys:
+" K             Show python docs
+" <Ctrl-Space>  Rope autocomplete
+" <Ctrl-c>g     Rope goto definition
+" <Ctrl-c>d     Rope show documentation
+" <Ctrl-c>f     Rope find occurrences
+" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
+" [[            Jump on previous class or function (normal, visual, operator modes)
+" ]]            Jump on next class or function (normal, visual, operator modes)
+" [M            Jump on previous class or method (normal, visual, operator modes)
+" ]M            Jump on next class or method (normal, visual, operator modes)
+let g:pymode_rope = 0
+" Documentation
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+"Linting
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "flake8"
+let g:pymode_lint_ignore="C901,E111,E114,E121,E501"
+" Auto check on save
+let g:pymode_lint_write = 1
+" Support virtualenv
+let g:pymode_virtualenv = 1
+" Enable breakpoints plugin
+" let g:pymode_breakpoint = 1
+" let g:pymode_breakpoint_bind = '<leader>b'
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+" Don't autofold code
+let g:pymode_folding = 0
