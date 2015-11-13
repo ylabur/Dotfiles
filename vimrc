@@ -40,7 +40,7 @@ set directory=$VIMDIRECTORY,/var/tmp,/tmp " store swap files here
 set suffixes+=.aux,.bbl,.blg,.dvi,.log,.pdf,.fdb_latexmk
 set suffixes+=.info,.out,.o,.lo,.bak,~,.swp,.o,.info,.log
 
-"##############################################################################                                                                         
+"##############################################################################
 "" a wise man once told me... (Stack Overflow 6053301)
 "" Easier split navigation                                                                                                                               
 "##############################################################################                                                                         
@@ -83,12 +83,6 @@ set number              " Display line numbers
 
 set t_Co=256            " We use 256 color terminal emulators these days.
 
-if exists('+colorcolumn')
-  set colorcolumn=81    " Highlight column 81 " if supported, use colorcolumn
-  highlight colorcolumn ctermbg=238 " zenburn sets red columns for reasons? Let's make that gray.
-else
-	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1) " alt to colorcolumn
-endif
 
 scriptencoding utf-8    " Use unicode characters
 set encoding=utf-8      " Also required to use unicode characters
@@ -107,6 +101,13 @@ au BufRead,BufNewFile *.json set filetype=javascript
 " =============================================================================
 " zenburn
 colors zenburn
+" column coloring needs to happen after loading colors
+if exists('+colorcolumn')
+  let &colorcolumn=join(range(121,999),",")
+  highlight colorcolumn ctermbg=235
+else
+	au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1) " alt to colorcolumn
+endif
 
 " NERDTree
 map <F2> :NERDTreeToggle<CR>
@@ -114,6 +115,7 @@ map <F2> :NERDTreeToggle<CR>
 " vim-airline
 set laststatus=2       " enable staus line
 set ttimeoutlen=50     " not sure what this is
+let g:airline_powerline_fonts = 1         " enable powerline fonts
 let g:airline_theme = 'powerlineish'      " pretty status
 let g:airline#extensions#hunks#enabled=0  " enable scm stuff
 let g:airline#extensions#branch#enabled=1 " enable scm stuff

@@ -73,7 +73,6 @@ setopt INC_APPEND_HISTORY                                                       
 setopt EXTENDED_HISTORY                                                         # provide timestamps in history
 setopt HIST_EXPIRE_DUPS_FIRST                                                   # remove duplicates first before saving history
 setopt HIST_IGNORE_SPACE                                                        # do not save command line if it has a leading space
-setopt NO_SHARE_HISTORY                                                         # annoying when different terminals do different tasks
 
 ##==-- vcs module --==##
 autoload -Uz vcs_info                                                           # enable vcs module
