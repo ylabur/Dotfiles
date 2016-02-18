@@ -6,7 +6,7 @@ call plug#begin('$HOME/.vim/plugged')
 Plug 'bling/vim-airline'
 Plug 'davidhalter/jedi-vim'
 Plug 'edkolev/tmuxline.vim'
-" Plug 'ervandew/supertab'
+Plug 'ervandew/supertab'
 Plug 'flazz/vim-colorschemes'
 Plug 'klen/python-mode'
 Plug 'scrooloose/nerdtree'
@@ -54,14 +54,16 @@ nnoremap <silent> <c-l> <c-w>l
 " =============================================================================
 "                                  Formatting
 " =============================================================================
-set autoindent          " Copy indent from current line on starting a new line.
-set smartindent         " Indent in an extra level in some cases
-set copyindent          " Copy the structure of existing indentation
-set tabstop=2           " number of spaces for a <Tab>.
-set shiftwidth=2        " Tab indention
-set expandtab           " Expand tabs to spaces.
-
 " Indentation Tweaks.
+" set autoindent          " copy indent from current line on starting a new line.
+" set smartindent         " indent in an extra level in some cases
+" set copyindent          " copy the structure of existing indentation
+" set tabstop=80           " number of spaces for a <tab>.
+set shiftwidth=2        " tab indention
+" set smarttab            " tab inserts indents instead of tabs
+set expandtab           " expand tabs to spaces.
+" set softtabstop=2       " simulate tab stops
+
 " e-s = do not indent if opening bracket is not first character in a line.
 " g0  = do not indent C++ scope declarations.
 " t0  = do not indent a function's return type declaration.
@@ -162,3 +164,29 @@ let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
+
+
+" Taken from https://github.com/carlhuda/janus/blob/master/janus/vim/tools/janus/after/plugin/nerdtree.vim
+" Pins NERDTree to the left hand side
+augroup AuNERDTreeCmd
+autocmd AuNERDTreeCmd FocusGained * call s:UpdateNERDTree()
+augroup END
+
+function s:UpdateNERDTree(...)
+  let stay = 0
+
+  if(exists("a:1"))
+    let stay = a:1
+  end
+
+  if exists("t:NERDTreeBufName")
+    let nr = bufwinnr(t:NERDTreeBufName)
+    if nr != -1
+      exe nr . "wincmd w"
+      exe substitute(mapcheck("R"), "<CR>", "", "")
+      if !stay
+        wincmd p
+      end
+    endif
+  endif
+endfunction

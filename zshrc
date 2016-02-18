@@ -95,3 +95,8 @@ precmd() {
 #~~~~~~~~~~~~~~~~~#
 # emacs keybindings in command line
 set -o emacs
+
+#~~~~~~~~~~~#
+#  Aliases  #
+#~~~~~~~~~~~#
+alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
