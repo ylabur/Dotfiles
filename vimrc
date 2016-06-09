@@ -3,7 +3,8 @@
 " =============================================================================
 call plug#begin('$HOME/.vim/plugged')
 " Add plugins to &runtimepath
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'davidhalter/jedi-vim'
 Plug 'edkolev/tmuxline.vim'
 Plug 'ervandew/supertab'
@@ -59,7 +60,6 @@ nnoremap <silent> <c-l> <c-w>l
 " set smartindent         " indent in an extra level in some cases
 " set copyindent          " copy the structure of existing indentation
 " set tabstop=80           " number of spaces for a <tab>.
-set shiftwidth=2        " tab indention
 " set smarttab            " tab inserts indents instead of tabs
 set expandtab           " expand tabs to spaces.
 " set softtabstop=2       " simulate tab stops
@@ -190,3 +190,7 @@ function s:UpdateNERDTree(...)
     endif
   endif
 endfunction
+
+set shiftwidth=2        " tab indention
+" set NERDTree ignore files
+let NERDTreeIgnore=['\.pyc$']

@@ -34,6 +34,8 @@ RPROMPT='${PR_GREEN}${vcs_info_msg_0_}${PR_RESET_COLOR}'
 ##==-- vim --==##
 VIMBACKUPDIR="$HOME/.vim/_backup"
 VIMDIRECTORY="$HOME/.vim/_temp"
+mkdir -p $VIMBACKUPDIR
+mkdir -p $VIMDIRECTORY
 ################################################################################
 setopt NO_ALL_EXPORT                                                            # end export all
 
