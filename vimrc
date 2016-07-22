@@ -34,8 +34,8 @@ set scrolloff=5         " Always shows five lines of vertical context around the
 set autochdir           " set cwd to that of the currently displayed file
 
 set viminfo='20,\"500
-set backupdir=$VIMBACKUPDIR             " store backup files here
-set directory=$VIMDIRECTORY,/var/tmp,/tmp " store swap files here
+set backupdir=$VIMBACKUPDIR//             " store backup files here
+set directory=$VIMDIRECTORY//,/var/tmp,/tmp " store swap files here
 
 " Low priority for these files in tab-completion.
 set suffixes+=.aux,.bbl,.blg,.dvi,.log,.pdf,.fdb_latexmk

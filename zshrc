@@ -8,6 +8,7 @@ setopt ALL_EXPORT                                                               
 ##==-- standard stuff --==##
 VISUAL=vim                                                                      # VISUAL is the right one to set for setting the editor
 EDITOR="$VISUAL"                                                                # but EDITOR is often used by mistake
+PATH="/usr/local/bin:$PATH"                                                     # somehow in El Capitan this isn't there by default
 
 ##==-- zsh --==##
 HISTFILE="$HOME/.zsh/cache/`hostname`.zhistory"
