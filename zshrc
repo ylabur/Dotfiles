@@ -9,6 +9,8 @@ setopt ALL_EXPORT                                                               
 VISUAL=vim                                                                      # VISUAL is the right one to set for setting the editor
 EDITOR="$VISUAL"                                                                # but EDITOR is often used by mistake
 PATH="/usr/local/bin:$PATH"                                                     # somehow in El Capitan this isn't there by default
+LDFLAGS=-L/usr/local/opt/openssl101/lib
+CPPFLAGS=-I/usr/local/opt/openssl101/include
 
 ##==-- zsh --==##
 HISTFILE="$HOME/.zsh/cache/`hostname`.zhistory"
@@ -81,7 +83,34 @@ setopt HIST_IGNORE_SPACE                                                        
 autoload -Uz vcs_info                                                           # enable vcs module
 setopt prompt_subst                                                             # set prompt substitution
 zstyle ':vcs_info:*' enable git svn                                             # look for git and svn repos
-zstyle ':vcs_info:*' formats       '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f' # don't know how jitl created this, but it's pretty so I'm keeping it :3
+zstyle ':vcs_info:svn*' formats       '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f' # don't know how jitl created this, but it's pretty so I'm keeping it :3
+zstyle ':vcs_info:git*:*' get-revision true
+zstyle ':vcs_info:git*:*' check-for-changes true
+zstyle ':vcs_info:git*' formats "(%s) %12.12i %c%u %b%m"
+zstyle ':vcs_info:git*' actionformats "(%s|%a) %12.12i %c%u %b%m"
+# Show remote ref name and number of commits ahead-of or behind
+function +vi-git-st() {
+    local ahead behind remote
+    local -a gitstatus
+
+    # Are we on a remote-tracking branch?
+    remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
+        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+
+    if [[ -n ${remote} ]] ; then
+        # for git prior to 1.7
+        # ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
+        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+        (( $ahead )) && gitstatus+=( "${c3}+${ahead}${c2}" )
+
+        # for git prior to 1.7
+        # behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
+        behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+        (( $behind )) && gitstatus+=( "${c4}-${behind}${c2}" )
+
+        hook_com[branch]="${hook_com[branch]} [${remote} ${(j:/:)gitstatus}]"
+    fi
+}
 
 
 #~~~~~~~~~~~~~~~#
@@ -103,3 +132,18 @@ set -o emacs
 #  Aliases  #
 #~~~~~~~~~~~#
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+alias tlist="tmux list-sessions"
+alias tget="tmux -2 attach -t "
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ylabur/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/ylabur/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ylabur/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/ylabur/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# idk why this isn't included
+export PATH=$PATH:/export/content/linkedin/bin
+
+# for android dev
+ANDROID_HOME=$HOME/Library/Android/sdk
+PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
