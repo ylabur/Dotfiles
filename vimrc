@@ -1,20 +1,8 @@
 " =============================================================================
-"                                   Vim-plug
+"                               Pathogen settings
 " =============================================================================
-call plug#begin('$HOME/.vim/plugged')
-" Add plugins to &runtimepath
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'davidhalter/jedi-vim'
-Plug 'edkolev/tmuxline.vim'
-Plug 'ervandew/supertab'
-Plug 'flazz/vim-colorschemes'
-Plug 'klen/python-mode'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
-call plug#end()
-
-
+execute pathogen#infect()
+filetype plugin indent on
 " =============================================================================
 "                               General settings
 " =============================================================================
@@ -43,8 +31,8 @@ set suffixes+=.info,.out,.o,.lo,.bak,~,.swp,.o,.info,.log
 
 "##############################################################################
 "" a wise man once told me... (Stack Overflow 6053301)
-"" Easier split navigation                                                                                                                               
-"##############################################################################                                                                         
+"" Easier split navigation
+"##############################################################################
 "" Use ctrl-[hjkl] to select the active split!
 nnoremap <silent> <c-k> <c-w>k
 nnoremap <silent> <c-j> <c-w>j
@@ -78,7 +66,7 @@ set cinoptions=e-s,g0,t0,(0,W4
 set background=dark     " Syntax highlighting for a dark terminal background.
 set hlsearch            " Highlight search results.
 set ruler               " Show the cursor position all the time.
-set showbreak=↪         " Highlight non-wrapped lines.
+" set showbreak=↪         " Highlight non-wrapped lines.
 set showcmd             " Display incomplete command in bottom right corner.
 set showmatch           " Show matching brackets
 set number              " Display line numbers
@@ -102,7 +90,7 @@ au BufRead,BufNewFile *.json set filetype=javascript
 "                                   Plugins
 " =============================================================================
 " zenburn
-colors zenburn
+" colors zenburn
 " column coloring needs to happen after loading colors
 if exists('+colorcolumn')
   let &colorcolumn=join(range(121,999),",")
@@ -194,3 +182,9 @@ endfunction
 set shiftwidth=2        " tab indention
 " set NERDTree ignore files
 let NERDTreeIgnore=['\.pyc$']
+" turn on if no files specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std:in") | NERDTree | endif
+
+" tmuxline
+let g:tmuxline_preset = 'full'

@@ -147,3 +147,6 @@ export PATH=$PATH:/export/content/linkedin/bin
 # for android dev
 ANDROID_HOME=$HOME/Library/Android/sdk
 PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+
+# export LANG=en_US.UTF-8
+# export LC_ALL=en_US.UTF-8
