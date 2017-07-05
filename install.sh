@@ -16,6 +16,8 @@ DOTFILES_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # list of files to link into homedir
 DOTFILES=(gitconfig gitignore_global tmux.conf vimrc zshrc)
 TOUCH_DIRS=($VIMBACKUPDIR $VIMDIRECTORY)
+# vim plugin directory
+PLUGIN_PATH=~/.vim/bundle
 
 # hide command output
 alias -g no-output=">/dev/null 2>&1"
@@ -49,12 +51,16 @@ function touch_files_and_dirs() {
   done
 }
 
-function vimplug() {
-	curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
-	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	  vim -c PlugInstall
+function pathogeninstall() {
+  mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 }
 
 dotfiles
 touch_files_and_dirs
-vimplug
+pathogeninstall
+
+# Vim plugins
+git -C $PLUGIN_PATH/nerdtree.vim pull || git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree.vim
+git -C $PLUGIN_PATH/tmuxline.vim pull || git clone https://github.com/edkolev/tmuxline.vim ~/.vim/bundle/tmuxline.vim
+git -C $PLUGIN_PATH/lightline.vim pull || git clone https://github.com/itchyny/lightline.vim ~/.vim/bundle/lightline.vim

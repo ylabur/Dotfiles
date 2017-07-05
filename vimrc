@@ -187,4 +187,4 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std:in") | NERDTree | endif
 
 " tmuxline
-let g:tmuxline_preset = 'full'
+let g:tmuxline_preset = 'tmux'
